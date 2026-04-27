@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Suhas8349/MySel01.git'
@@ -15,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './gradlew clean build'   // ✅ use wrapper (more reliable)
+                sh './gradlew clean build'
             }
         }
 
@@ -27,14 +28,14 @@ pipeline {
 
         stage('Run Application') {
             steps {
-                sh 'java -jar build/libs/*.jar'
+                sh './gradlew run'
             }
         }
     }
 
     post {
         success {
-            echo 'Build and deployment successful!'
+            echo 'Build successful!'
         }
         failure {
             echo 'Build failed!'
